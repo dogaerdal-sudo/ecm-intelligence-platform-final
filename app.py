@@ -521,7 +521,7 @@ if module == "Dashboard":
         for _, r in sdf.head(3).iterrows():
             top_rows.append([prod, r["Company"], r["Country"], r["GICS Sector"], r["Opportunity Score"], r["Status"]])
     top_df = pd.DataFrame(top_rows, columns=["Product", "Company", "Country", "GICS Sector", "Opportunity Score", "Status"]).sort_values("Opportunity Score", ascending=False).head(12)
-    st.write("")
+    
     st.markdown(
     '''
     <div class="section-card" style="padding:12px 15px; margin-bottom:10px;">
@@ -541,14 +541,13 @@ elif module in ["ECM Cash", "PCM", "SES"]:
     if product == "LTIP Tracker":
         st.info("MVP demo using structured dummy disclosure fields. In production, this could be populated from remuneration reports, annual reports and company disclosures.")
         ltip_data = pd.DataFrame([
-            ["Ferrari", "Italy", "Consumer Discretionary", "Yes", "Performance Shares", 180, 2027, "Physical", "High Opportunity"],
-            ["Moncler", "Italy", "Consumer Discretionary", "Yes", "Restricted Shares", 75, 2026, "Physical", "Watch"],
-            ["Stellantis", "Netherlands", "Consumer Discretionary", "Yes", "Options + Shares", 240, 2028, "Mixed", "High Opportunity"],
-            ["Enel", "Italy", "Utilities", "Yes", "Performance Shares", 95, 2026, "Cash", "Watch"],
-            ["Prysmian", "Italy", "Industrials", "No", "-", 0, "-", "-", "Low Priority"],
-            ["Saipem", "Italy", "Energy", "Yes", "Share-Based Plan", 60, 2025, "Physical", "Watch"],
-        ], columns=["Company", "Country", "GICS Sector", "LTIP Flag", "Plan Type", "Estimated Size EURm", "Expiry / Vesting Year", "Settlement", "Opportunity Status"])
-
+            ["Ferrari",   "Italy",       "Consumer Discretionary", "Yes", "Performance Shares", 180, 2027, "Physical", "Watch"],
+            ["Moncler",   "Italy",       "Consumer Discretionary", "Yes", "Restricted Shares",   75, 2026, "Physical", "High Opportunity"],
+            ["Stellantis","Netherlands", "Consumer Discretionary", "Yes", "Options + Shares",   240, 2028, "Mixed",    "Low Priority"],
+            ["Enel",      "Italy",       "Utilities",              "Yes", "Performance Shares",   95, 2026, "Cash",     "High Opportunity"],
+            ["Prysmian",  "Italy",       "Industrials",            "No",  "-",                     0, "-",   "-",        "Low Priority"],
+            ["Saipem",    "Italy",       "Energy",                 "Yes", "Share-Based Plan",      60, 2027, "Physical", "Watch"],
+        ])
         st.markdown('<div class="section-card"><h3>Long Term Incentive Plan Tracker</h3>', unsafe_allow_html=True)
         st.dataframe(ltip_data, use_container_width=True, hide_index=True)
         st.markdown("</div>", unsafe_allow_html=True)
@@ -560,11 +559,19 @@ elif module in ["ECM Cash", "PCM", "SES"]:
             ["Ferrari", "Italy", "No", "-", 0, "-", "-", "Low Priority"],
             ["Stellantis", "Netherlands", "Yes", "Equity Swap", 250, "BNP Paribas", 2026, "High Opportunity"],
             ["Telecom Italia", "Italy", "Yes", "Equity Collar", 120, "UniCredit", 2027, "Watch"],
-            ["Enel", "Italy", "Yes", "Own-share Swap", 180, "Intesa Sanpaolo", 2026, "Watch"],
+            ["Enel", "Italy", "Yes", "Own-share Swap", 180, "Intesa Sanpaolo", 2026, "High Opportunity"],
             ["Leonardo", "Italy", "No", "-", 0, "-", "-", "Low Priority"],
-            ["Saipem", "Italy", "Yes", "Call Option Structure", 90, "JP Morgan", 2025, "Watch"],
-        ], columns=["Company", "Country", "Own-share Derivative Flag", "Instrument Type", "Estimated Size EURm", "Bank / Counterparty", "Maturity", "Opportunity Status"])
-
+            ["Saipem", "Italy", "Yes", "Call Option Structure", 90, "JP Morgan", 2029, "Low Priority"],
+        ], columns=[
+            "Company",
+            "Country",
+            "Own-share Derivative Flag",
+            "Instrument Type",
+            "Estimated Size EURm",
+            "Bank / Counterparty",
+            "Maturity",
+            "Opportunity Status"
+        ])
         st.markdown('<div class="section-card"><h3>Own-Share Derivatives Tracker</h3>', unsafe_allow_html=True)
         st.dataframe(deriv_data, use_container_width=True, hide_index=True)
         st.markdown("</div>", unsafe_allow_html=True)
