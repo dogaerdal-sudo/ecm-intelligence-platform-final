@@ -521,7 +521,7 @@ if module == "Dashboard":
         for _, r in sdf.head(3).iterrows():
             top_rows.append([prod, r["Company"], r["Country"], r["GICS Sector"], r["Opportunity Score"], r["Status"]])
     top_df = pd.DataFrame(top_rows, columns=["Product", "Company", "Country", "GICS Sector", "Opportunity Score", "Status"]).sort_values("Opportunity Score", ascending=False).head(12)
-    
+    st.write("")
     st.markdown(
     '''
     <div class="section-card" style="padding:12px 15px; margin-bottom:10px;">
