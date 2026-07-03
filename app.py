@@ -547,6 +547,16 @@ elif module in ["ECM Cash", "PCM", "SES"]:
             ["Enel",      "Italy",       "Utilities",              "Yes", "Performance Shares",   95, 2026, "Cash",     "High Opportunity"],
             ["Prysmian",  "Italy",       "Industrials",            "No",  "-",                     0, "-",   "-",        "Low Priority"],
             ["Saipem",    "Italy",       "Energy",                 "Yes", "Share-Based Plan",      60, 2027, "Physical", "Watch"],
+        ], columns=[
+            "Company",
+            "Country",
+            "Industry",
+            "Has LTIP",
+            "Plan Type",
+            "Estimated Size EURm",
+            "Expiry / Vesting Year",
+            "Settlement",
+            "Opportunity Status",
         ])
         st.markdown('<div class="section-card"><h3>Long Term Incentive Plan Tracker</h3>', unsafe_allow_html=True)
         st.dataframe(ltip_data, use_container_width=True, hide_index=True)
